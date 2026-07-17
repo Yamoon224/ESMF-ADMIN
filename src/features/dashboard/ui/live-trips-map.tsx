@@ -20,7 +20,7 @@ export function LiveTripsMap({ trips }: { trips: Trip[] }) {
       <p className="absolute left-3 top-3 rounded-md bg-esmf-surface/90 px-2 py-1 text-xs font-medium text-esmf-text-muted shadow-sm">
         Carte temps réel — Cotonou / Abomey-Calavi (aperçu)
       </p>
-      {trips.map((trip, i) => {
+      {trips.map((trip) => {
         const left = 12 + ((trip.pickup.lng * 137) % 76);
         const top = 18 + ((trip.pickup.lat * 211) % 64);
         return (

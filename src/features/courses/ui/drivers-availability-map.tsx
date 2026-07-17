@@ -1,4 +1,4 @@
-import type { Driver, Trip } from "@/types/entities";
+import type { Driver } from "@/types/entities";
 
 type Availability = "available" | "onTrip" | "offline";
 

@@ -24,7 +24,6 @@ const DOC_LABEL: Record<"permit" | "insurance" | "criminalRecord", string> = {
 };
 
 const MOCKED_NOW = new Date("2026-07-17T09:00:00Z");
-const MS_IN_DAY = 24 * 60 * 60 * 1000;
 
 interface ExpiringDoc {
   driver: Driver;
