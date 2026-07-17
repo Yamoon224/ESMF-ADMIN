@@ -38,7 +38,7 @@ function TopBar({
             Connectée en tant que {getRoleLabel(role)}
           </p>
           <p className="hidden truncate text-xs text-esmf-text-muted sm:block">
-            Le Grand Frère — Votre orientation scolaire
+            ESMF — Des trajets sûrs pour les femmes ; des femmes fortes
           </p>
         </div>
       </div>

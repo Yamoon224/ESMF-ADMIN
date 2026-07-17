@@ -15,9 +15,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Le Grand Frère — Dashboard Admin",
+  title: "ESMF — Dashboard Admin",
   description:
-    "Dashboard d'administration — supervision temps réel, utilisatrices, conductrices, incidents SOS, analytics.",
+    "ESMF (Enagnon Sécurité Mobilité Femme) — supervision temps réel, utilisatrices, conductrices, incidents SOS, analytics.",
 };
 
 export default function RootLayout({

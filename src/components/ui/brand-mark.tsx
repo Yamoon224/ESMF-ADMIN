@@ -3,24 +3,30 @@ type BrandMarkProps = {
   className?: string;
 };
 
-/**
- * The three chevrons converge toward a center point — the logo's own geometry,
- * reused as the product's signature mark rather than redrawn as a generic icon.
- */
+/** ESMF monogram badge — Enagnon Sécurité Mobilité Femme. */
 export function BrandMark({ size = 34, className }: BrandMarkProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      fill="none"
       className={className}
       role="img"
-      aria-label="Le Grand Frère"
+      aria-label="ESMF"
     >
-      <path d="M50 14 L74 30 L50 46 L26 30 Z" fill="var(--esmf-alert)" />
-      <path d="M26 30 L50 46 L50 78 L26 62 Z" fill="var(--esmf-success)" />
-      <path d="M74 30 L50 46 L50 78 L74 62 Z" fill="var(--esmf-secondary)" />
+      <rect width="100" height="100" rx="24" fill="white" />
+      <rect x="8" y="8" width="18" height="18" rx="6" fill="var(--esmf-alert)" />
+      <text
+        x="58"
+        y="68"
+        textAnchor="middle"
+        fontFamily="var(--font-sora), sans-serif"
+        fontWeight="700"
+        fontSize="52"
+        fill="var(--esmf-primary)"
+      >
+        E
+      </text>
     </svg>
   );
 }
@@ -35,7 +41,7 @@ export function BrandLockup({ className, tagline = "Dashboard admin" }: BrandLoc
     <div className={`flex items-center gap-2.5 ${className ?? ""}`}>
       <BrandMark size={34} />
       <span className="font-display text-sm font-bold leading-tight text-white">
-        Le Grand Frère
+        ESMF
         <span className="mt-0.5 block font-sans text-[10.5px] font-normal text-white/60">
           {tagline}
         </span>
