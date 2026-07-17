@@ -1,6 +1,16 @@
 import type { DriverReview } from "@/types/entities";
 import { MOCK_TRIPS } from "./trips";
 
+const COMMENTS = [
+  "Conduite très prudente, je me suis sentie en sécurité.",
+  "Ponctuelle et courtoise.",
+  "Trajet correct, rien à signaler.",
+  "Un peu d'attente au départ mais trajet agréable.",
+  "Excellent accueil, recommandé.",
+  "Conduite trop rapide à mon goût.",
+  "Très professionnelle, merci !",
+];
+
 /**
  * Historique d'avis dérivé des trajets notés.
  */
@@ -14,13 +24,3 @@ export const MOCK_DRIVER_REVIEWS: DriverReview[] = MOCK_TRIPS.filter(
   comment: COMMENTS[index % COMMENTS.length],
   createdAt: trip.endedAt ?? trip.createdAt,
 }));
-
-const COMMENTS = [
-  "Conduite très prudente, je me suis sentie en sécurité.",
-  "Ponctuelle et courtoise.",
-  "Trajet correct, rien à signaler.",
-  "Un peu d'attente au départ mais trajet agréable.",
-  "Excellent accueil, recommandé.",
-  "Conduite trop rapide à mon goût.",
-  "Très professionnelle, merci !",
-];
