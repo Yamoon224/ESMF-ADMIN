@@ -31,9 +31,9 @@ export function AlertsPanel({
           href="/incidents-sos"
           className="flex items-center justify-between gap-3 rounded-lg border border-esmf-alert/30 bg-esmf-alert/5 px-3 py-2.5 hover:bg-esmf-alert/10"
         >
-          <div>
-            <p className="text-sm font-semibold text-esmf-alert">Alerte SOS active</p>
-            <p className="text-xs text-esmf-text-muted">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-esmf-alert">Alerte SOS active</p>
+            <p className="truncate text-xs text-esmf-text-muted">
               Trajet {alert.tripId} — déclenchée à{" "}
               {new Date(alert.triggeredAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
             </p>
@@ -48,11 +48,11 @@ export function AlertsPanel({
           href="/incidents-sos"
           className="flex items-center justify-between gap-3 rounded-lg border border-esmf-border px-3 py-2.5 hover:bg-esmf-bg"
         >
-          <div>
-            <p className="text-sm font-semibold text-esmf-text">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-esmf-text">
               {INCIDENT_TYPE_LABEL[incident.type]}
             </p>
-            <p className="text-xs text-esmf-text-muted">{incident.description}</p>
+            <p className="truncate text-xs text-esmf-text-muted">{incident.description}</p>
           </div>
           <StatusBadge status={incident.status} />
         </Link>

@@ -71,7 +71,7 @@ export function DashboardShell({
   return (
     <RoleProvider>
       <ToastProvider>
-        <div className="flex h-full min-h-screen w-full">
+        <div className="flex h-full min-h-screen w-full overflow-x-hidden">
           <aside className="hidden w-64 flex-shrink-0 flex-col bg-gradient-to-b from-esmf-primary to-esmf-primary-dark md:flex">
             <BrandLink />
             <SidebarNav />
@@ -103,9 +103,9 @@ export function DashboardShell({
             </div>
           )}
 
-          <div className="flex min-h-screen flex-1 flex-col">
+          <div className="flex min-h-screen min-w-0 flex-1 flex-col">
             <TopBar sosActiveCount={sosActiveCount} onOpenMobileNav={() => setMobileNavOpen(true)} />
-            <main className="esmf-scroll flex-1 overflow-y-auto bg-esmf-bg p-4 pb-20 sm:p-6 md:pb-6">
+            <main className="esmf-scroll min-w-0 flex-1 overflow-x-hidden overflow-y-auto bg-esmf-bg p-4 pb-20 sm:p-6 md:pb-6">
               {children}
             </main>
             <MobileTabBar onOpenMore={() => setMobileNavOpen(true)} />
