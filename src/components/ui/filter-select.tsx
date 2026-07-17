@@ -12,7 +12,7 @@ export function FilterSelect({ label, value, onChange, options }: FilterSelectPr
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-md border border-esmf-border bg-esmf-surface px-2.5 py-2 text-sm text-esmf-text outline-none focus:border-esmf-primary"
+        className="rounded-lg border border-esmf-border bg-esmf-surface px-2.5 py-2 text-sm text-esmf-text outline-none focus-visible:border-esmf-primary focus-visible:ring-2 focus-visible:ring-esmf-primary/15"
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>

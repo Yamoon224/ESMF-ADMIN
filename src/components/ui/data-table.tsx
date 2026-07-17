@@ -8,6 +8,8 @@ export interface DataTableColumn<T> {
   render: (row: T) => ReactNode;
   sortValue?: (row: T) => string | number;
   align?: "left" | "right" | "center";
+  /** Featured column shown as the card title on mobile (defaults to the first column). */
+  mobilePrimary?: boolean;
 }
 
 interface DataTableProps<T> {
@@ -71,6 +73,9 @@ export function DataTable<T>({
   const currentPage = Math.min(page, totalPages);
   const paginated = sorted.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  const primaryColumn = columns.find((c) => c.mobilePrimary) ?? columns[0];
+  const secondaryColumns = columns.filter((c) => c.key !== primaryColumn?.key);
+
   function toggleSort(column: DataTableColumn<T>) {
     if (!column.sortValue) return;
     if (sortKey !== column.key) {
@@ -89,7 +94,7 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="rounded-xl border border-esmf-border bg-esmf-surface shadow-sm">
+    <div className="rounded-2xl border border-esmf-border bg-esmf-surface shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-esmf-border p-3">
         {searchText ? (
           <input
@@ -100,7 +105,7 @@ export function DataTable<T>({
               setPage(1);
             }}
             placeholder={searchPlaceholder}
-            className="w-full max-w-xs rounded-md border border-esmf-border px-3 py-2 text-sm outline-none focus:border-esmf-primary"
+            className="w-full max-w-xs rounded-lg border border-esmf-border px-3 py-2 text-sm outline-none focus-visible:border-esmf-primary focus-visible:ring-2 focus-visible:ring-esmf-primary/15"
           />
         ) : (
           <span />
@@ -108,14 +113,15 @@ export function DataTable<T>({
         {toolbarExtra}
       </div>
 
-      <div className="esmf-scroll overflow-x-auto">
+      {/* Desktop / tablet: real table. */}
+      <div className="esmf-scroll hidden overflow-x-auto md:block">
         <table className="w-full min-w-[640px] border-collapse text-sm">
           <thead>
             <tr className="border-b border-esmf-border bg-esmf-bg/60">
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className={`px-4 py-3 font-semibold text-esmf-text-muted ${ALIGN_CLASSES[column.align ?? "left"]} ${
+                  className={`px-4 py-3 text-[11.5px] font-semibold tracking-wide text-esmf-text-muted uppercase ${ALIGN_CLASSES[column.align ?? "left"]} ${
                     column.sortValue ? "cursor-pointer select-none hover:text-esmf-primary" : ""
                   }`}
                   onClick={() => toggleSort(column)}
@@ -157,6 +163,36 @@ export function DataTable<T>({
         </table>
       </div>
 
+      {/* Mobile: stacked cards — a table forced into a viewport this narrow is unreadable, not "responsive". */}
+      <div className="divide-y divide-esmf-border md:hidden">
+        {paginated.length === 0 && (
+          <p className="px-4 py-8 text-center text-sm text-esmf-text-muted">{emptyMessage}</p>
+        )}
+        {paginated.map((row) => (
+          <button
+            type="button"
+            key={rowKey(row)}
+            onClick={() => onRowClick?.(row)}
+            disabled={!onRowClick}
+            className={`w-full px-4 py-3.5 text-left ${onRowClick ? "active:bg-esmf-bg/70" : "cursor-default"}`}
+          >
+            {primaryColumn && <div className="text-sm">{primaryColumn.render(row)}</div>}
+            {secondaryColumns.length > 0 && (
+              <dl className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5">
+                {secondaryColumns.map((column) => (
+                  <div key={column.key} className="min-w-0">
+                    <dt className="text-[10.5px] font-medium tracking-wide text-esmf-text-muted uppercase">
+                      {column.header}
+                    </dt>
+                    <dd className="mt-0.5 truncate text-[13px] text-esmf-text">{column.render(row)}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </button>
+        ))}
+      </div>
+
       <div className="flex items-center justify-between gap-3 border-t border-esmf-border p-3 text-xs text-esmf-text-muted">
         <span>
           {sorted.length} résultat{sorted.length > 1 ? "s" : ""} — page {currentPage}/{totalPages}
@@ -166,7 +202,7 @@ export function DataTable<T>({
             type="button"
             disabled={currentPage <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="rounded-md border border-esmf-border px-2.5 py-1 font-medium disabled:opacity-40"
+            className="rounded-lg border border-esmf-border px-2.5 py-1 font-medium disabled:opacity-40"
           >
             Précédent
           </button>
@@ -174,7 +210,7 @@ export function DataTable<T>({
             type="button"
             disabled={currentPage >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="rounded-md border border-esmf-border px-2.5 py-1 font-medium disabled:opacity-40"
+            className="rounded-lg border border-esmf-border px-2.5 py-1 font-medium disabled:opacity-40"
           >
             Suivant
           </button>

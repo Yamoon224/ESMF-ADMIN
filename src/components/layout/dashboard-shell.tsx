@@ -2,10 +2,12 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { RoleProvider, useRole } from "@/context/role-context";
 import { ToastProvider } from "@/context/toast-context";
 import { SidebarNav } from "@/components/ui/sidebar-nav";
+import { MobileTabBar } from "@/components/ui/mobile-tab-bar";
+import { BrandLockup } from "@/components/ui/brand-mark";
 import { RoleSwitcher } from "@/components/ui/role-switcher";
 import { NotificationsMenu } from "@/components/ui/notifications-menu";
 import { SosAlertBanner } from "@/components/ui/sos-alert-banner";
@@ -21,26 +23,26 @@ function TopBar({
   const { role } = useRole();
 
   return (
-    <header className="flex h-16 flex-shrink-0 items-center justify-between gap-4 border-b border-esmf-border bg-esmf-surface px-4 sm:px-6">
+    <header className="flex h-16 flex-shrink-0 items-center justify-between gap-3 border-b border-esmf-border bg-esmf-surface px-4 sm:px-6">
       <div className="flex min-w-0 items-center gap-3">
         <button
           type="button"
           onClick={onOpenMobileNav}
           aria-label="Ouvrir le menu"
-          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md border border-esmf-border text-esmf-text-muted md:hidden"
+          className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-esmf-border text-esmf-text-muted transition-colors hover:bg-esmf-bg md:hidden"
         >
           <Menu size={18} />
         </button>
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold text-esmf-text">
-            Connecté en tant que {getRoleLabel(role)}
+            Connectée en tant que {getRoleLabel(role)}
           </p>
           <p className="hidden truncate text-xs text-esmf-text-muted sm:block">
-            ESMF — Des trajets sûrs pour les femmes ; des femmes fortes
+            Le Grand Frère — Votre orientation scolaire
           </p>
         </div>
       </div>
-      <div className="flex flex-shrink-0 items-center gap-3">
+      <div className="flex flex-shrink-0 items-center gap-2.5">
         <SosAlertBanner activeCount={sosActiveCount} />
         <RoleSwitcher />
         <NotificationsMenu />
@@ -49,17 +51,10 @@ function TopBar({
   );
 }
 
-function BrandLink() {
+function BrandLink({ onClose }: { onClose?: () => void }) {
   return (
-    <Link href="/" className="flex items-center gap-2 px-4 py-5">
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-esmf-primary">
-        E
-      </span>
-      <span className="text-sm font-bold leading-tight text-white">
-        ESMF
-        <br />
-        Dashboard Admin
-      </span>
+    <Link href="/" onClick={onClose} className="block px-4 py-5">
+      <BrandLockup />
     </Link>
   );
 }
@@ -77,7 +72,7 @@ export function DashboardShell({
     <RoleProvider>
       <ToastProvider>
         <div className="flex h-full min-h-screen w-full">
-          <aside className="hidden w-64 flex-shrink-0 flex-col bg-esmf-primary md:flex">
+          <aside className="hidden w-64 flex-shrink-0 flex-col bg-gradient-to-b from-esmf-primary to-esmf-primary-dark md:flex">
             <BrandLink />
             <SidebarNav />
           </aside>
@@ -89,9 +84,19 @@ export function DashboardShell({
                 onClick={() => setMobileNavOpen(false)}
                 aria-hidden
               />
-              <div className="relative flex h-full w-64 flex-col bg-esmf-primary shadow-2xl">
-                <BrandLink />
-                <div onClick={() => setMobileNavOpen(false)}>
+              <div className="relative flex h-full w-72 flex-col bg-gradient-to-b from-esmf-primary to-esmf-primary-dark shadow-2xl">
+                <div className="flex items-center justify-between pr-3">
+                  <BrandLink onClose={() => setMobileNavOpen(false)} />
+                  <button
+                    type="button"
+                    onClick={() => setMobileNavOpen(false)}
+                    aria-label="Fermer le menu"
+                    className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+                <div onClick={() => setMobileNavOpen(false)} className="flex-1 overflow-y-auto">
                   <SidebarNav />
                 </div>
               </div>
@@ -100,9 +105,10 @@ export function DashboardShell({
 
           <div className="flex min-h-screen flex-1 flex-col">
             <TopBar sosActiveCount={sosActiveCount} onOpenMobileNav={() => setMobileNavOpen(true)} />
-            <main className="esmf-scroll flex-1 overflow-y-auto bg-esmf-bg p-4 sm:p-6">
+            <main className="esmf-scroll flex-1 overflow-y-auto bg-esmf-bg p-4 pb-20 sm:p-6 md:pb-6">
               {children}
             </main>
+            <MobileTabBar onOpenMore={() => setMobileNavOpen(true)} />
           </div>
         </div>
       </ToastProvider>

@@ -24,7 +24,7 @@ export function Drawer({ open, onClose, title, subtitle, children, footer }: Dra
       <div className="esmf-scroll relative flex h-full w-full max-w-lg flex-col overflow-y-auto bg-esmf-surface shadow-2xl">
         <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-esmf-border bg-esmf-surface p-5">
           <div>
-            <h2 className="text-lg font-bold text-esmf-text">{title}</h2>
+            <h2 className="font-display text-lg font-bold text-esmf-text">{title}</h2>
             {subtitle && <p className="text-sm text-esmf-text-muted">{subtitle}</p>}
           </div>
           <button

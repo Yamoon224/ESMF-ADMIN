@@ -18,7 +18,7 @@ export function RoleSwitcher() {
       <select
         value={role}
         onChange={(e) => setRole(e.target.value as AdminRoleId)}
-        className="rounded-md border border-esmf-border bg-esmf-surface px-2.5 py-2 text-sm font-semibold text-esmf-primary outline-none focus:border-esmf-primary"
+        className="rounded-lg border border-esmf-border bg-esmf-surface px-2.5 py-2 text-sm font-semibold text-esmf-primary outline-none focus-visible:border-esmf-primary focus-visible:ring-2 focus-visible:ring-esmf-primary/15"
       >
         {ADMIN_ROLES.map((r) => (
           <option key={r.id} value={r.id}>

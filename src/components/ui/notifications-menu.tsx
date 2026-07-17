@@ -25,15 +25,15 @@ export function NotificationsMenu() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-label="Notifications"
-        className="relative flex h-11 w-11 items-center justify-center rounded-full border border-esmf-border text-esmf-text-muted hover:bg-esmf-bg hover:text-esmf-primary"
+        className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-esmf-border text-esmf-text-muted transition-colors hover:bg-esmf-bg hover:text-esmf-primary"
       >
-        <Bell size={18} />
+        <Bell size={17} />
         <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-esmf-secondary" />
       </button>
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} aria-hidden />
-          <div className="absolute right-0 z-20 mt-2 w-80 rounded-xl border border-esmf-border bg-esmf-surface p-2 shadow-xl">
+          <div className="absolute right-0 z-20 mt-2 w-80 rounded-2xl border border-esmf-border bg-esmf-surface p-2 shadow-xl">
             <p className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wide text-esmf-text-muted">
               Notifications récentes
             </p>

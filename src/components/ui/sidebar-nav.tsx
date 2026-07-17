@@ -2,47 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Users,
-  Car,
-  MapPinned,
-  Wallet,
-  ShieldAlert,
-  Star,
-  BookOpen,
-  BarChart3,
-  Settings,
-} from "lucide-react";
 import { useRole } from "@/context/role-context";
-import type { NavSectionId } from "@/lib/rbac/roles";
-
-interface NavItem {
-  section: NavSectionId;
-  href: string;
-  label: string;
-  icon: typeof LayoutDashboard;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { section: "dashboard", href: "/", label: "Tableau de bord", icon: LayoutDashboard },
-  { section: "utilisatrices", href: "/utilisatrices", label: "Utilisatrices", icon: Users },
-  { section: "conductrices", href: "/conductrices", label: "Conductrices", icon: Car },
-  { section: "courses", href: "/courses", label: "Courses en temps réel", icon: MapPinned },
-  { section: "paiements", href: "/paiements", label: "Paiements", icon: Wallet },
-  { section: "incidents-sos", href: "/incidents-sos", label: "Incidents & SOS", icon: ShieldAlert },
-  { section: "evaluations", href: "/evaluations", label: "Évaluations", icon: Star },
-  { section: "contenus-educatifs", href: "/contenus-educatifs", label: "Contenus éducatifs", icon: BookOpen },
-  { section: "rapports-analyses", href: "/rapports-analyses", label: "Rapports & analyses", icon: BarChart3 },
-  { section: "parametres", href: "/parametres", label: "Paramètres", icon: Settings },
-];
+import { NAV_ITEMS } from "@/lib/nav-items";
 
 export function SidebarNav() {
   const pathname = usePathname();
   const { canView } = useRole();
 
   return (
-    <nav className="esmf-scroll flex h-full flex-col gap-1 overflow-y-auto p-3">
+    <nav className="esmf-scroll flex h-full flex-col gap-0.5 overflow-y-auto px-3 py-2">
       {NAV_ITEMS.filter((item) => canView(item.section)).map((item) => {
         const active = pathname === item.href;
         const Icon = item.icon;
@@ -50,13 +18,20 @@ export function SidebarNav() {
           <Link
             key={item.section}
             href={item.href}
-            className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+            aria-current={active ? "page" : undefined}
+            className={`relative flex items-center gap-3 rounded-lg py-2.5 pr-3 pl-4 text-[13px] font-medium transition-colors ${
               active
-                ? "bg-white text-esmf-primary shadow-sm"
-                : "text-white/85 hover:bg-white/10 hover:text-white"
+                ? "bg-white/10 font-semibold text-white"
+                : "text-white/65 hover:bg-white/5 hover:text-white/90"
             }`}
           >
-            <Icon size={18} strokeWidth={2} />
+            {active && (
+              <span
+                aria-hidden
+                className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-esmf-success"
+              />
+            )}
+            <Icon size={17} strokeWidth={2} className={active ? "" : "opacity-80"} />
             {item.label}
           </Link>
         );

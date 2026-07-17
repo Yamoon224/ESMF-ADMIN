@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f8fb;
+  --foreground: #16233a;
+
+  /* Le Grand Frère — brand tokens, derived from the logo (navy / teal / coral / gold). */
+  --esmf-primary: #12315c;
+  --esmf-primary-dark: #0a2547;
+  --esmf-primary-light: #eaf0f9;
+  --esmf-secondary: #f4b23e;
+  --esmf-alert: #ef6444;
+  --esmf-success: #3fb6b0;
+  --esmf-bg: #f6f8fb;
+  --esmf-surface: #ffffff;
+  --esmf-border: #e3e8f0;
+  --esmf-text: #16233a;
+  --esmf-text-muted: #667389;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-sora);
   --font-mono: var(--font-geist-mono);
+
+  --color-esmf-primary: var(--esmf-primary);
+  --color-esmf-primary-dark: var(--esmf-primary-dark);
+  --color-esmf-primary-light: var(--esmf-primary-light);
+  --color-esmf-secondary: var(--esmf-secondary);
+  --color-esmf-alert: var(--esmf-alert);
+  --color-esmf-success: var(--esmf-success);
+  --color-esmf-bg: var(--esmf-bg);
+  --color-esmf-surface: var(--esmf-surface);
+  --color-esmf-border: var(--esmf-border);
+  --color-esmf-text: var(--esmf-text);
+  --color-esmf-text-muted: var(--esmf-text-muted);
+
+  --animate-sos-blink: sos-blink 1.6s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes sos-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.75;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-sora), var(--font-inter), sans-serif;
+}
+
+/* Thin, unobtrusive scrollbar for nav/table/drawer scroll regions. */
+.esmf-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--esmf-border) transparent;
+}
+.esmf-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.esmf-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--esmf-border);
+  border-radius: 999px;
+}
+.esmf-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

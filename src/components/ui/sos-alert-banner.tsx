@@ -21,7 +21,7 @@ export function SosAlertBanner({ activeCount }: { activeCount: number }) {
   return (
     <Link
       href="/incidents-sos"
-      className="flex items-center gap-2 rounded-full bg-esmf-alert px-3 py-1.5 text-xs font-bold text-white shadow-md shadow-esmf-alert/30 animate-sos-blink"
+      className="flex items-center gap-2 rounded-full bg-esmf-alert px-3.5 py-1.5 text-xs font-bold tracking-wide text-white shadow-md shadow-esmf-alert/30 animate-sos-blink"
       aria-live="assertive"
     >
       <span className="relative flex h-2.5 w-2.5">

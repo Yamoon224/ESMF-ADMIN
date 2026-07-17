@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 
-const roboto = Roboto({
-  variable: "--font-roboto",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "ESMF Admin — Dashboard",
+  title: "Le Grand Frère — Dashboard Admin",
   description:
-    "Dashboard d'administration ESMF (Enagnon Sécurité Mobilité Femme) — supervision temps réel, utilisatrices, conductrices, incidents SOS, analytics.",
+    "Dashboard d'administration — supervision temps réel, utilisatrices, conductrices, incidents SOS, analytics.",
 };
 
 export default function RootLayout({
@@ -20,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${roboto.variable} h-full antialiased`}>
+    <html lang="fr" className={`${inter.variable} ${sora.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-esmf-bg text-esmf-text">{children}</body>
     </html>
   );
