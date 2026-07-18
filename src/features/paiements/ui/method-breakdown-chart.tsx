@@ -2,6 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, LabelList } from "recharts";
 import { ResponsiveContainer } from "recharts";
+import { CHART_THEME } from "@/lib/chart-theme";
 
 /**
  * Palette catégorielle validée (dataviz skill, mode light) :
@@ -21,25 +22,25 @@ export function MethodBreakdownChart({ data }: { data: { method: string; amount:
   return (
     <ResponsiveContainer width="100%" height={260}>
       <BarChart data={data} layout="vertical" margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#D7E3F2" horizontal={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke={CHART_THEME.grid} horizontal={false} />
         <XAxis
           type="number"
           tickFormatter={(v) => `${Math.round(v / 1000)}k`}
-          tick={{ fontSize: 12, fill: "#555555" }}
+          tick={{ fontSize: 12, fill: CHART_THEME.textMuted }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
           type="category"
           dataKey="method"
-          tick={{ fontSize: 12, fill: "#1A1A1A" }}
+          tick={{ fontSize: 12, fill: CHART_THEME.text }}
           axisLine={false}
           tickLine={false}
           width={120}
         />
         <Tooltip
           formatter={(value: number) => [formatFcfa(value), "Montant"]}
-          contentStyle={{ borderRadius: 8, border: "1px solid #D7E3F2", fontSize: 12 }}
+          contentStyle={{ borderRadius: 8, border: `1px solid ${CHART_THEME.grid}`, fontSize: 12 }}
         />
         <Bar dataKey="amount" radius={[0, 4, 4, 0]} barSize={22}>
           {data.map((entry, index) => (
@@ -49,7 +50,7 @@ export function MethodBreakdownChart({ data }: { data: { method: string; amount:
             dataKey="amount"
             position="right"
             formatter={(value: number) => formatFcfa(value)}
-            style={{ fontSize: 11, fill: "#555555" }}
+            style={{ fontSize: 11, fill: CHART_THEME.textMuted }}
           />
         </Bar>
       </BarChart>
